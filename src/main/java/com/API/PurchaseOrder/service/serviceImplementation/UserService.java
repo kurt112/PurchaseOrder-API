@@ -8,6 +8,9 @@ import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,16 +32,15 @@ public class UserService implements ServicesGraphQl<User> {
     }
 
     @Override
-    @GraphQLQuery(name = "users")
+    @GraphQLQuery(name = "getUsers")
     public List<User> data(@GraphQLArgument(name = "search")String search,
                            @GraphQLArgument(name = "page") int page) {
-//        Pageable pageable = PageRequest.of(page,10);
-//        Page<User> pages =  repo.users(search, pageable);
-//        totalElements =  pages.getTotalElements();
-//        totalPages = pages.getTotalPages();
-//        currentPages = page;
-        List<User> users = new ArrayList<>();
-        return  repo.findAll();// pages.getContent();
+        Pageable pageable = PageRequest.of(page,15);
+        Page<User> pages =  repo.findAll(pageable);
+        totalElements =  pages.getTotalElements();
+        totalPages = pages.getTotalPages();
+        currentPages = page;
+        return  pages.getContent();// pages.getContent();
     }
 
     @Override
@@ -53,7 +55,6 @@ public class UserService implements ServicesGraphQl<User> {
     }
 
     @Override
-    @GraphQLQuery(name = "deleteUserById")
     public boolean deleteById(String id) {
         try {
             repo.deleteById(id);

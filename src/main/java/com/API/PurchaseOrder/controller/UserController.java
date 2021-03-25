@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
     final private UserService userService;
     private final Jwt jwt;
@@ -90,10 +91,17 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public User user(){
-        User user = new User("kurtorioque112@gmail.com", "password");
-        System.out.println(user.toString());
+    public User user(@RequestBody User user){
         userService.save(user);
+        return user;
+    }
+
+    @PostMapping("/delete")
+    public User deleteUser(@RequestParam("id") String id){
+        User user = userService.findById(id);
+
+        userService.deleteById(id);
+
         return user;
     }
 

@@ -33,6 +33,13 @@ public class UserController {
         this.userDetailsService = userDetailsService;
     }
 
+    @GetMapping("/")
+    public ResponseEntity<HashMap> Welcome(){
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("Test", "yey");
+        return ResponseEntity.ok(hashMap);
+    }
 
     @PostMapping("/logoutUser")
     public ResponseEntity<List<HashMap>> LogoutMethod(@RequestParam("token") String token){

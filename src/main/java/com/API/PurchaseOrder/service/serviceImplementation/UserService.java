@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Service
+@Transactional
 @GraphQLApi
 public class UserService implements ServicesGraphQl<User> {
     final private UserRepository repo;
@@ -34,8 +34,9 @@ public class UserService implements ServicesGraphQl<User> {
     @Override
     @GraphQLQuery(name = "getUsers")
     public List<User> data(@GraphQLArgument(name = "search")String search,
-                           @GraphQLArgument(name = "page") int page) {
-        Pageable pageable = PageRequest.of(page,15);
+                           @GraphQLArgument(name = "page") int page,
+                           @GraphQLArgument(name = "size") int size) {
+        Pageable pageable = PageRequest.of(page,size);
         Page<User> pages =  repo.findAll(pageable);
         totalElements =  pages.getTotalElements();
         totalPages = pages.getTotalPages();
@@ -49,13 +50,14 @@ public class UserService implements ServicesGraphQl<User> {
         try {
             repo.save(user);
         }catch (Exception e){
+
             return null;
         }
         return user;
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(int id) {
         try {
             repo.deleteById(id);
         }catch (Exception e){
@@ -66,15 +68,15 @@ public class UserService implements ServicesGraphQl<User> {
 
     @Override
     @GraphQLQuery(name = "user")
-    public User findById(@GraphQLArgument(name = "id") String id) {
+    public User findById(@GraphQLArgument(name = "id") int id) {
         Optional<User> user = repo.findById(id);
         return user.orElse(null);
     }
 
 
     public User findByEmail(String email){
-        Optional<User> user = repo.findById(email);
-        return user.orElse(null);
+        User user = repo.findByEmail(email);
+        return user;
     }
 
     @Override

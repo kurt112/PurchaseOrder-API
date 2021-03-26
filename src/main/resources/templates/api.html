@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+
+      dir="ltr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<h1>
+	List of API for user
+</h1>
+
+<h2>Legend: nullValue(optional)</h2>
+
+<hr/>
+<h2>To Add User And Update User ( if the user has a same id it will update)</h2>
+<h3>{CurrentUlr}/user/register</h3>
+<p>Data Need: <b>Put it on the body</b></p>
+<p>User</p>
+<p>
+	{
+	<br/>
+	"id": null
+	<br/>
+	"sectorId": Integer,
+	<br/>
+	"email": String,
+	<br/>
+	"password": String,
+	<br/>
+	"employeeId": String,
+	<br/>
+	"firstName": String,
+	<br/>
+	"lastName": String,
+	<br/>
+	"role": String,
+	<br/>
+	"status": Integer,
+	<br/>
+	"createAt": null
+	<br/>
+	"updateAt": null
+	<br/>
+	"deleteAt": null
+	<br/>
+	}
+</p>
+
+<hr/>
+
+<h2>To Delete User</h2>
+<h3>{CurrentUlr}/user/delete</h3>
+<p>Data Need: <b>Param need int (id)</b></p>
+
+<p>
+	<b>Return Type</b>: User Data | message
+</p>
+
+<hr/>
+
+<h2>To Login User</h2>
+<h3>{CurrentUlr}/user/login</h3>
+<p>Data Need: <b>Put it on the body</b></p>
+<p>
+	{
+	<br/>
+	"email":String,
+	<br/>
+	"password": String
+	<br/>
+	}
+</p>
+
+<hr/>
+<h2>To ReLogin User</h2>
+<h3>{CurrentUlr}/user/re-login</h3>
+<p>Data Need: <b>Param need String (token)</b></p>
+<p>
+	<b>Return Type</b>: User Data
+</p>
+</body>
+</html>

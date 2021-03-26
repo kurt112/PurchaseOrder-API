@@ -14,7 +14,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,14 +36,6 @@ public class UserController {
         this.userDetailsService = userDetailsService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<HashMap> Welcome(){
-        HashMap<String, String> hashMap = new HashMap<>();
-
-        hashMap.put("Test", "yey");
-        return ResponseEntity.ok(hashMap);
-    }
-
     @PostMapping("/logoutUser")
     public ResponseEntity<List<HashMap>> LogoutMethod(@RequestParam("token") String token){
 
@@ -54,6 +48,21 @@ public class UserController {
         response.add(data);
         return ResponseEntity.ok(response);
 
+    }
+
+    @PostMapping("/re-login")
+    public ResponseEntity<HashMap<?,?>> ReLogin(@RequestParam("token") String token) {
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+
+        String email = jwt.getUsername(token);
+
+        User user = userService.findByEmail(email);
+
+        hashMap.put("token", token);
+        hashMap.put("message", "Login Successful");
+        hashMap.put("user",user);
+        return ResponseEntity.ok(hashMap);
     }
 
     @PostMapping("/login")
@@ -87,22 +96,41 @@ public class UserController {
     @GetMapping("/users")
     public List<User> users(){
 
-        return userService.data("",0);
+        return userService.data("",0,15);
     }
 
     @PostMapping("/register")
-    public User user(@RequestBody User user){
-        userService.save(user);
-        return user;
+    public ResponseEntity<?> user(@RequestBody User user){
+
+        User user1 = new User(0,0,"kurtoriouqe112@gmail.com","asdf","123","kurt","Oriouqe","Model",1,new Date(), new Date(), new Date());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+
+        if(userService.save(user) == null){
+            hashMap.put("message", "Can't Add User");
+            return ResponseEntity.badRequest().body(hashMap);
+        }
+
+        hashMap.put("data",user);
+        hashMap.put("message", "User Register Succesful");
+        return ResponseEntity.ok(hashMap);
     }
 
     @PostMapping("/delete")
-    public User deleteUser(@RequestParam("id") String id){
+    public ResponseEntity<?> deleteUser(@RequestParam("id") int id){
         User user = userService.findById(id);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        if(user == null){
+            hashMap.put("message", "Can't Delete User With the id of " + id);
+
+            return ResponseEntity.badRequest().body(hashMap);
+        }
 
         userService.deleteById(id);
 
-        return user;
+        hashMap.put("message", "Delete User Successful");
+        hashMap.put("data", user);
+          return ResponseEntity.ok(hashMap);
     }
 
 }

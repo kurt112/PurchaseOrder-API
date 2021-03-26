@@ -10,13 +10,13 @@ import java.util.List;
 
 @Service
 public interface ServicesGraphQl<T> {
-    List<T> data(String search, int page);
+    List<T> data(String search, int page, int size);
 
     T save(T t);
 
-    boolean deleteById(String id);
+    boolean deleteById(int id);
 
-    T findById(String id);
+    T findById(int id);
 
     ApiSettings apiSettings();
 }

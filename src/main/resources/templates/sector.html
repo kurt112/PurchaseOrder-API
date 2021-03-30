@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"
+
+      dir="ltr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Sector API</title>
+</head>
+<body>
+
+<h1>
+	List of API for Sector
+</h1>
+
+<h2>Legend: nullValue(optional)</h2>
+
+<hr/>
+
+<h2>@POST To Add Sector And Update Sector ( if the Sector has a same id it will update)</h2>
+<h3>{CurrentUlr}/sector/addUpdate</h3>
+<p>Data Need: <b>Put it on the body</b></p>
+<p>sector</p>
+<p>
+	{
+	<br/>
+	"id": null
+	<br/>
+	"name": Integer,
+	<br/>
+	"status": String,
+	<br/>
+	"approver": String,
+	<br/>
+	"sub_approver": String,
+	<br/>
+	"createAt": null
+	<br/>
+	"updateAt": null
+	<br/>
+	"deleteAt": null
+	<br/>
+	}
+</p>
+
+<hr/>
+
+<h2>@Post To Delete Sector</h2>
+<h3>{CurrentUlr}/sector/updateDeleteStatus</h3>
+<p>Data Need: <b>Param need int (id)</b></p>
+<p>
+	<b>Return Type</b>: Sector Data | message
+</p>
+
+<hr/>
+
+<h2>@Post To get Single getSector</h2>
+<h3>{CurrentUlr}/PurchaseOrder</h3>
+<h4>@Param id:{sector id}</h4>
+<p>
+	query{
+	getSector(id:1){
+	  [Sector Data you need]
+	}
+	}
+</p>
+<p>
+	<b>Return Type</b>: Sector Data
+</p>
+
+<hr/>
+
+<h2>@Post To get List Of Sectors</h2>
+<h3>{CurrentUlr}/PurchaseOrder</h3>
+<h4>@Param search:{String}, page: {Integer}, size: {Integer}</h4>
+<p>
+	query{
+	getSectors(search:"", page:0,size:10){
+		[Sector Data you need]
+	}
+	}
+</p>
+<p>
+	<b>Return Type</b>: Sector Data
+</p>
+
+<hr/>
+
+</body>
+</html>

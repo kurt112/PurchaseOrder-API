@@ -8,6 +8,11 @@ public class ApiList {
 
     @GetMapping("/")
     public String Weclome(){
-        return "api";
+        return "user";
+    }
+
+    @GetMapping("/sector")
+    public String Sector(){
+        return "sector";
     }
 }

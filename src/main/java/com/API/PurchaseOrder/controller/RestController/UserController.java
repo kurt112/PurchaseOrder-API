@@ -1,4 +1,4 @@
-package com.API.PurchaseOrder.controller;
+package com.API.PurchaseOrder.controller.RestController;
 
 import com.API.PurchaseOrder.configuration.Login.AuthenticationRequest;
 import com.API.PurchaseOrder.entity.API.LogoutPost;

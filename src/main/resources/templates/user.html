@@ -16,7 +16,7 @@
 <h2>Legend: nullValue(optional)</h2>
 
 <hr/>
-<h2>To Add User And Update User ( if the user has a same id it will update)</h2>
+<h2>@Post To Add User And Update User ( if the user has a same id it will update)</h2>
 <h3>{CurrentUlr}/user/register</h3>
 <p>Data Need: <b>Put it on the body</b></p>
 <p>User</p>
@@ -52,7 +52,7 @@
 
 <hr/>
 
-<h2>To Delete User</h2>
+<h2> @Post To Delete User</h2>
 <h3>{CurrentUlr}/user/delete</h3>
 <p>Data Need: <b>Param need int (id)</b></p>
 
@@ -62,7 +62,7 @@
 
 <hr/>
 
-<h2>To Login User</h2>
+<h2>@Post To Login User</h2>
 <h3>{CurrentUlr}/user/login</h3>
 <p>Data Need: <b>Put it on the body</b></p>
 <p>
@@ -76,11 +76,20 @@
 </p>
 
 <hr/>
-<h2>To ReLogin User</h2>
+<h2>@Post To ReLogin User</h2>
 <h3>{CurrentUlr}/user/re-login</h3>
 <p>Data Need: <b>Param need String (token)</b></p>
 <p>
 	<b>Return Type</b>: User Data
+</p>
+
+
+<h2>@Post To Logout User</h2>
+<h3>{CurrentUlr}/user/logout</h3>
+<p>Data Need: <b>Param need int (jwtToken)</b></p>
+
+<p>
+	<b>Return Type</b>: message
 </p>
 </body>
 </html>

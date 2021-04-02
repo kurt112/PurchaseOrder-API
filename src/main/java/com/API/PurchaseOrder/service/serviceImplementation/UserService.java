@@ -2,7 +2,7 @@ package com.API.PurchaseOrder.service.serviceImplementation;
 
 import com.API.PurchaseOrder.entity.User;
 import com.API.PurchaseOrder.repository.UserRepository;
-import com.API.PurchaseOrder.service.PageableParentClass.ServicesGraphQl;
+import com.API.PurchaseOrder.service.PageableParentClass.Services;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserService implements ServicesGraphQl<User> {
+public class UserService implements Services<User> {
     final private UserRepository repo;
 
     @Autowired

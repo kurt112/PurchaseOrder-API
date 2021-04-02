@@ -2,9 +2,7 @@ package com.API.PurchaseOrder.service.serviceImplementation;
 
 import com.API.PurchaseOrder.entity.Sector;
 import com.API.PurchaseOrder.repository.SectorRepository;
-import com.API.PurchaseOrder.service.PageableParentClass.ServicesGraphQl;
-import io.leangen.graphql.annotations.GraphQLArgument;
-import io.leangen.graphql.annotations.GraphQLQuery;
+import com.API.PurchaseOrder.service.PageableParentClass.Services;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +16,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @GraphQLApi
-public class SectorService implements ServicesGraphQl<Sector> {
+public class SectorService implements Services<Sector> {
 
     final private SectorRepository repo;
 
@@ -28,10 +26,8 @@ public class SectorService implements ServicesGraphQl<Sector> {
     }
 
     @Override
-    @GraphQLQuery(name = "getSectors")
-    public Page<Sector> data(@GraphQLArgument(name = "search") String search,
-                             @GraphQLArgument(name = "page") int page,
-                             @GraphQLArgument(name = "size") int size) {
+
+    public Page<Sector> data(String search, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
         return repo.sectors(search.trim().isEmpty()?"": search, pageable);
@@ -59,8 +55,7 @@ public class SectorService implements ServicesGraphQl<Sector> {
     }
 
     @Override
-    @GraphQLQuery(name = "getSector")
-    public Sector findById(@GraphQLArgument(name = "id") int id) {
+    public Sector findById(int id) {
         Optional<Sector> sector = repo.findById(id);
         return sector.orElse(null);
     }

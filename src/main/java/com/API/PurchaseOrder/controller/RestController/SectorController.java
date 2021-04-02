@@ -24,14 +24,22 @@ public class SectorController {
 
     @PostMapping("/addUpdate")
     private ResponseEntity<List<HashMap>> addSector(@RequestBody Sector sector){
+        Sector find = sectorService.findById(sector.getId());
         HashMap<String, Object> hashMap = new HashMap<>();
-
         List<HashMap> response = new ArrayList<>();
-//        Sector sector1 = new Sector(1,"kurt",1,2,3,new Date(),new Date(),new Date());
+
+        if(find == null){
+            sector.setCreateAt(new Date());
+            hashMap.put("message","Sector Register Success");
+        }else{
+            sector.setUpdateAt(new Date());
+            hashMap.put("message","Sector Update Success");
+        }
+
+        hashMap.put("data",sector);
 
         sectorService.save(sector);
-        hashMap.put("message","Register Success");
-        hashMap.put("data",sector);
+
         response.add(hashMap);
         return ResponseEntity.ok(response);
     }
@@ -45,12 +53,12 @@ public class SectorController {
         HashMap<String, Object> hashMap = new HashMap<>();
         List<Sector> sectors = new ArrayList<>();
         List<HashMap> response = new ArrayList<>();
+        sector.setDeleteAt(new Date());
         sector.setStatus(status);
         sectors.add(sector);
         response.add(hashMap);
-        hashMap.put("message","Register Success");
+        hashMap.put("message","Sector Delete Success");
         hashMap.put("data",sectors);
-        response.add(hashMap);
         return ResponseEntity.ok(response);
     }
 

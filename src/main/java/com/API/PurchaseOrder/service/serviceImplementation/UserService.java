@@ -41,6 +41,7 @@ public class UserService implements ServicesGraphQl<User> {
         totalElements =  pages.getTotalElements();
         totalPages = pages.getTotalPages();
         currentPages = page;
+        System.out.println(pages.getContent());
         return  pages.getContent();// pages.getContent();
     }
 
@@ -67,7 +68,7 @@ public class UserService implements ServicesGraphQl<User> {
     }
 
     @Override
-    @GraphQLQuery(name = "user")
+    @GraphQLQuery(name = "getUser")
     public User findById(@GraphQLArgument(name = "id") int id) {
         Optional<User> user = repo.findById(id);
         return user.orElse(null);

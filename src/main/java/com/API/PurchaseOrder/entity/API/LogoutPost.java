@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LogoutPost {
     private String message;
-    private String data;
+//    private String data;
 }

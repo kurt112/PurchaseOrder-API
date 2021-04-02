@@ -36,14 +36,14 @@ public class UserController {
         this.userDetailsService = userDetailsService;
     }
 
-    @PostMapping("/logoutUser")
+    @PostMapping("/logout")
     public ResponseEntity<List<HashMap>> LogoutMethod(@RequestParam("token") String token){
 
         List<HashMap> response = new ArrayList<>();
         jwt.removeToken(token);
         HashMap<String,Object> data = new HashMap<>();
 
-        LogoutPost logoutPost = new LogoutPost("Logout Success","");
+        LogoutPost logoutPost = new LogoutPost("Logout Success");
         data.put("data", logoutPost);
         response.add(data);
         return ResponseEntity.ok(response);
@@ -51,30 +51,36 @@ public class UserController {
     }
 
     @PostMapping("/re-login")
-    public ResponseEntity<HashMap<?,?>> ReLogin(@RequestParam("token") String token) {
-
+    public ResponseEntity<List<HashMap>> ReLogin(@RequestParam("token") String token) {
+        System.out.println(token);
         HashMap<String, Object> hashMap = new HashMap<>();
 
         String email = jwt.getUsername(token);
 
         User user = userService.findByEmail(email);
 
-        hashMap.put("token", token);
-        hashMap.put("message", "Login Successful");
-        hashMap.put("user",user);
-        return ResponseEntity.ok(hashMap);
+        UserPost userPost = new UserPost(user,token);
+        List<UserPost> userPosts = new ArrayList<>();
+        List<HashMap> response = new ArrayList<>();
+        userPosts.add(userPost);
+        hashMap.put("message","hoy kupal nagLogin ka ulit");
+        hashMap.put("data",userPost);
+        response.add(hashMap);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
     public ResponseEntity<List<HashMap>> Login(@RequestBody AuthenticationRequest authenticationRequest) {
-
+        System.out.println("wew");
         HashMap<String, Object> hashMap = new HashMap<>();
 
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                     authenticationRequest.getPassword()));
         }catch (Exception badCredentialsException){
+            System.out.println(badCredentialsException);
             hashMap.put("message", "Account Not Found");
+            hashMap.put("error",badCredentialsException);
 
             return ResponseEntity.badRequest().body(null);
         }
@@ -83,7 +89,7 @@ public class UserController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = this.jwt.generateToken(userDetails);
 
-        UserPost userPost = new UserPost(userDetailsService.getUser().getEmail(),userDetailsService.getUser().getPassword(),jwt);
+        UserPost userPost = new UserPost(userService.findByEmail(userDetails.getUsername()),jwt);
         List<UserPost> userPosts = new ArrayList<>();
         List<HashMap> response = new ArrayList<>();
         userPosts.add(userPost);
@@ -99,20 +105,25 @@ public class UserController {
         return userService.data("",0,15);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/addUpdate")
     public ResponseEntity<?> user(@RequestBody User user){
 
-        User user1 = new User(0,0,"kurtoriouqe112@gmail.com","asdf","123","kurt","Oriouqe","Model",1,new Date(), new Date(), new Date());
+        User find = userService.findById(user.getId());
 
         HashMap<String, Object> hashMap = new HashMap<>();
-
+        if(find == null){
+            user.setCreateAt(new Date());
+            hashMap.put("message", "User Register Succesful");
+        }else{
+            user.setUpdateAt(new Date());
+            hashMap.put("message", "User Update Succesful");
+        }
         if(userService.save(user) == null){
             hashMap.put("message", "Can't Add User");
             return ResponseEntity.badRequest().body(hashMap);
         }
-
         hashMap.put("data",user);
-        hashMap.put("message", "User Register Succesful");
+
         return ResponseEntity.ok(hashMap);
     }
 
@@ -126,8 +137,8 @@ public class UserController {
             return ResponseEntity.badRequest().body(hashMap);
         }
 
-        userService.deleteById(id);
 
+        user.setDeleteAt(new Date());
         hashMap.put("message", "Delete User Successful");
         hashMap.put("data", user);
           return ResponseEntity.ok(hashMap);

@@ -8,13 +8,13 @@ import com.API.PurchaseOrder.service.MyUserDetailsService;
 import com.API.PurchaseOrder.service.serviceImplementation.UserService;
 import com.API.PurchaseOrder.utils.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -99,11 +99,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/users")
-    public List<User> users(){
-
-        return userService.data("",0,15);
-    }
 
     @PostMapping("/addUpdate")
     public ResponseEntity<?> user(@RequestBody User user){
@@ -125,6 +120,34 @@ public class UserController {
         hashMap.put("data",user);
 
         return ResponseEntity.ok(hashMap);
+    }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<?> getUser(@RequestParam("id") int id){
+
+        HashMap<String, Object> response = new HashMap<>();
+        User user = userService.findById(id);
+
+        if(user == null){
+            response.put("message", "Can't find user with the id of " + id);
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        response.put("data", user);
+        response.put("message", "User Find Success");
+
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/list")
+    public ResponseEntity<?> getUsers(@RequestParam("search") String search, @RequestParam("page") int page,
+                                      @RequestParam("size") int size){
+        HashMap<String, Object> response = new HashMap<>();
+        Page<User> users = userService.data(search,page-1,size);
+        response.put("data", users.getContent());
+        response.put("totalElements", users.getTotalElements());
+        response.put("totalPages", users.getTotalPages());
+        response.put("currentPage", users.getNumber()+1);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/delete")

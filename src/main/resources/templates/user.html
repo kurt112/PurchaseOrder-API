@@ -56,7 +56,7 @@
     </tbody>
 </table>
 <p><b>Body: </b></p>
-    <textarea cols="100" rows="100">
+<textarea cols="100" rows="100">
     {
         "id": Integer
         "sectorId": Integer,
@@ -232,29 +232,10 @@
 </textarea>
 
 <h4>UserList</h4>
-<p><b>Endpoint:</b> {CurrentUrl}/PurchaseOrder</p>
+<p><b>Endpoint:</b> {CurrentUrl}/user/list</p>
 <p><b>Method:</b> POST </p>
-<p><b>Param: </b>Search(String), page:Integer, size: Integer</p>
-<p><b>Body: </b>
-    <textarea cols="100" rows="100">
-        query{
-            getUsers(search:"", page:0,size:10){
-                id,
-                sectorId,
-                email,
-                password,
-                employeeId,
-                firstName,
-                lastName,
-                role,
-                status,
-                createAt,
-                updateAt,
-                deleteAt
-  }
-}
-    </textarea>
-</p>
+<p><b>Param: </b>Search:String, page:Integer, size: Integer</p>
+<p><b>Body:</b></p>
 <p><b>Header: </b></p>
 <table>
     <thead>
@@ -274,80 +255,34 @@
 <p><b>Status:</b> 200 OK</p>
 <textarea cols="100" rows="100">
 {
-  "data": {
-    "getUsers": [
-      {
-        "id": 4,
-        "sectorId": 2,
-        "email": "kurtorioque",
-        "password": "w",
-        "employeeId": "2",
-        "firstName": "kurt",
-        "lastName": "oriouqe",
-        "role": "Nothing",
-        "status": 1,
-        "createAt": "2021-04-02T05:59:24.856Z",
-        "updateAt": null,
-        "deleteAt": null
-      },
-      {
-        "id": 2,
-        "sectorId": 2,
-        "email": "kurtorioque@gmail.com",
-        "password": "as",
-        "employeeId": "2",
-        "firstName": "kurt",
-        "lastName": "oriouqe",
-        "role": "Nothing",
-        "status": 1,
-        "createAt": null,
-        "updateAt": null,
-        "deleteAt": null
-      },
-      {
-        "id": 1,
-        "sectorId": 2,
-        "email": "s@gmail.com",
-        "password": "asd",
-        "employeeId": "2",
-        "firstName": "kurt",
-        "lastName": "oriouqe",
-        "role": "Nothing",
-        "status": 1,
-        "createAt": null,
-        "updateAt": null,
-        "deleteAt": null
-      }
-    ]
-  }
+    "data": [
+        {
+            "id": 4,
+            "sectorId": 2,
+            "email": "kurtorioque",
+            "password": "w",
+            "employeeId": "2",
+            "firstName": "kurt",
+            "lastName": "oriouqe",
+            "role": "Nothing",
+            "status": 1,
+            "createAt": "2021-04-02T05:59:24.856+00:00",
+            "updateAt": null,
+            "deleteAt": null
+        }
+    ],
+    "totalPages": 3,
+    "page": 0,
+    "totalElements": 3
 }
 </textarea>
 
 
 <h4>get Single User</h4>
-<p><b>Endpoint:</b> {CurrentUrl}/PurchaseOrder</p>
+<p><b>Endpoint:</b> {CurrentUrl}/user/getUser</p>
 <p><b>Method:</b> POST </p>
 <p><b>Param: </b>id: Integer</p>
-<p><b>Body: </b>
-    <textarea cols="100" rows="100">
-      query{
-            getUser(id:4){
-                id,
-                sectorId,
-                email,
-                password,
-                employeeId,
-                firstName,
-                lastName,
-                role,
-                status,
-                createAt,
-                updateAt,
-                deleteAt
-  }
-}
-    </textarea>
-</p>
+<p><b>Body: </b>null</p>
 <p><b>Header: </b></p>
 <table>
     <thead>
@@ -367,22 +302,21 @@
 <p><b>Status:</b> 200 OK</p>
 <textarea cols="100" rows="100">
     {
-  "data": {
-    "getUser": {
-      "id": 4,
-      "sectorId": 2,
-      "email": "kurtorioque",
-      "password": "w",
-      "employeeId": "2",
-      "firstName": "kurt",
-      "lastName": "oriouqe",
-      "role": "Nothing",
-      "status": 1,
-      "createAt": "2021-04-02T05:59:24.856Z",
-      "updateAt": null,
-      "deleteAt": null
-    }
-  }
+    "data": {
+        "id": 4,
+        "sectorId": 2,
+        "email": "kurtorioque",
+        "password": "w",
+        "employeeId": "2",
+        "firstName": "kurt",
+        "lastName": "oriouqe",
+        "role": "Nothing",
+        "status": 1,
+        "createAt": "2021-04-02T05:59:24.856+00:00",
+        "updateAt": null,
+        "deleteAt": null
+    },
+    "message": "User Find Success"
 }
 </textarea>
 <br/>

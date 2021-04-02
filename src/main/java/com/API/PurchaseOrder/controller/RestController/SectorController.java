@@ -3,6 +3,7 @@ package com.API.PurchaseOrder.controller.RestController;
 import com.API.PurchaseOrder.entity.Sector;
 import com.API.PurchaseOrder.service.serviceImplementation.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,36 @@ public class SectorController {
         sectorService.save(sector);
 
         response.add(hashMap);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/list")
+    private ResponseEntity<?> sectorList(@RequestParam("search") String search, @RequestParam("page") int page,
+                                         @RequestParam("size") int size){
+        HashMap<String, Object> response = new HashMap<>();
+        Page<Sector> sectors = sectorService.data(search,page-1,size);
+
+        response.put("data", sectors.getContent());
+        response.put("totalElements", sectors.getTotalElements());
+        response.put("totalPages", sectors.getTotalPages());
+        response.put("page", sectors.getNumber()+1);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/getSector")
+    private ResponseEntity<?> sector(@RequestParam("id") int id){
+        Sector sector = sectorService.findById(id);
+
+        HashMap<String, Object> response = new HashMap<>();
+
+        if(sector == null){
+            response.put("message", "Can't find user with the id of " + id);
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        response.put("data", sector);
+        response.put("message", "Sector Find Success");
+
         return ResponseEntity.ok(response);
     }
 

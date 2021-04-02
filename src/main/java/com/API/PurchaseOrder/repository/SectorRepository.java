@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SectorRepository extends JpaRepository<Sector, Integer> {
 
-    @Query(value = "SELECT t from Sector t")
+    @Query(value = "SELECT t from Sector t where t.name like %?1%")
 
 //    "t.status = ?1 or " +
 //            "t.approver =?1 or " +
@@ -16,5 +16,5 @@ public interface SectorRepository extends JpaRepository<Sector, Integer> {
 //            "t.createAt =?1 or " +
 //            "t.updateAt =?1 or " +
 //            "t.deleteAt =?1 "
-    Page<Sector> data(String search, Pageable pageable);
+    Page<Sector> sectors(String search, Pageable pageable);
 }

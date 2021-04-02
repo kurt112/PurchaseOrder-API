@@ -167,4 +167,16 @@ public class UserController {
           return ResponseEntity.ok(hashMap);
     }
 
+    @GetMapping("/getApprover")
+    public ResponseEntity<?> getApprovers(@RequestParam("search") String search, @RequestParam("page") int page,
+                                      @RequestParam("size") int size){
+        HashMap<String, Object> response = new HashMap<>();
+        Page<User> users = userService.approver(search,page-1,size);
+        response.put("data", users.getContent());
+        response.put("totalElements", users.getTotalElements());
+        response.put("totalPages", users.getTotalPages());
+        response.put("currentPage", users.getNumber()+1);
+        return ResponseEntity.ok(response);
+    }
+
 }

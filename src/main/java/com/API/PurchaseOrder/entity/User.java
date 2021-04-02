@@ -40,7 +40,7 @@ public class User {
     private String lastName;
 
     @Column(name = "role")
-    private String role;
+    private int role;
 
     @Column(name = "status")
     private int status;

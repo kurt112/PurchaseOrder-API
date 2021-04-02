@@ -3,7 +3,6 @@ package com.API.PurchaseOrder.service.serviceImplementation;
 import com.API.PurchaseOrder.entity.User;
 import com.API.PurchaseOrder.repository.UserRepository;
 import com.API.PurchaseOrder.service.PageableParentClass.Services;
-import io.leangen.graphql.annotations.GraphQLArgument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,9 +17,17 @@ import java.util.Optional;
 public class UserService implements Services<User> {
     final private UserRepository repo;
 
+
     @Autowired
     public UserService(UserRepository repo) {
         this.repo = repo;
+    }
+
+
+    public Page<User> approver(String search, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        return repo.approveruser(search.trim().isEmpty()?"":search,pageable);
     }
 
     @Override
@@ -52,7 +59,7 @@ public class UserService implements Services<User> {
     }
 
     @Override
-    public User findById(@GraphQLArgument(name = "id") int id) {
+    public User findById( int id) {
         Optional<User> user = repo.findById(id);
         return user.orElse(null);
     }

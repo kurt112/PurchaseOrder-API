@@ -16,4 +16,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "Select t from User t where t.firstName like %?1%")
     Page<User> users(String Search, Pageable pageable);
+
+    @Query(value = "select t from User t where t.role =3 or t.firstName like %?1%")
+    Page<User> approveruser(String search, Pageable pageable);
 }

@@ -1,7 +1,7 @@
 package com.API.PurchaseOrder.service.serviceImplementation;
 
-import com.API.PurchaseOrder.entity.Sector;
-import com.API.PurchaseOrder.repository.SectorRepository;
+import com.API.PurchaseOrder.entity.SubSector;
+import com.API.PurchaseOrder.repository.SubSectorRepository;
 import com.API.PurchaseOrder.service.PageableParentClass.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,32 +14,30 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class SectorService implements Services<Sector> {
+public class SubSectorService implements Services<SubSector> {
 
-    final private SectorRepository repo;
+    private final SubSectorRepository repo;
 
     @Autowired
-    public SectorService(SectorRepository repo) {
+    public SubSectorService(SubSectorRepository repo) {
         this.repo = repo;
     }
 
     @Override
-
-    public Page<Sector> data(String search, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        return repo.sectors(search.trim().isEmpty()?"": search, pageable);
+    public Page<SubSector> data(String search, int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return repo.data(search.trim().isEmpty()? "": search,pageable);
     }
 
     @Override
-    public Sector save(Sector sector) {
+    public SubSector save(SubSector subSector) {
         try {
-            repo.save(sector);
+            repo.save(subSector);
         } catch (Exception e) {
 
             return null;
         }
-        return sector;
+        return subSector;
     }
 
     @Override
@@ -53,9 +51,8 @@ public class SectorService implements Services<Sector> {
     }
 
     @Override
-    public Sector findById(int id) {
-        Optional<Sector> sector = repo.findById(id);
+    public SubSector findById(int id) {
+        Optional<SubSector> sector = repo.findById(id);
         return sector.orElse(null);
     }
-
 }

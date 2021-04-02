@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"
+
+      dir="ltr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Sub Sector API</title>
+    <style>
+        body {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        table {
+            width: 50%;
+        }
+
+        textarea {
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+<h4>
+    Sub Sector API
+</h4>
+<hr/>
+
+<h5>Current URL: https://purchaseorderapi.herokuapp.com/</h5>
+<hr/>
+<h4>Add or Update SubSector</h4>
+<h5><u>If the Sector has a same id it will update else it will register</u></h5>
+<p><b>Endpoint:</b> {CurrentUrl}/subSector/addUpdate </p>
+<p><b>Method:</b> POST </p>
+<p><b>Body: </b></p>
+<textarea cols="100" rows="100">
+    {
+	    "id": null
+	    "name": Integer,
+	    "status": String,
+	    "createAt": date
+	    "updateAt": date
+	    "deleteAt": date
+	}
+    </textarea>
+<p><b>Header: </b></p>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Authorization</td>
+        <td>Bearer {token}</td>
+    </tr>
+    </tbody>
+</table>
+<p><b>Response: </b></p>
+<p><b>Status:</b> 200 OK</p>
+<textarea cols="100" rows="100">
+[
+    {
+        "data": {
+            "id": 4,
+            "name": "kurt",
+            "status": 1,
+            "createAt": "2021-04-02T08:05:30.978+00:00",
+            "updateAt": null,
+            "deleteAt": null
+        },
+        "message": "Sub Sector Register Success"
+    }
+]
+</textarea>
+
+
+<h4>To Delete Sector</h4>
+<p><b>Endpoint:</b> {CurrentUrl}/subSector/updateDeleteStatus </p>
+<p><b>Method:</b> POST </p>
+<p><b>Body: </b>null</p>
+<p><b>Header: </b></p>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Authorization</td>
+        <td>Bearer {token}</td>
+    </tr>
+    </tbody>
+</table>
+<p><b>Param: </b>id (sectorID), status(Integer)</p>
+<p><b>Response: </b></p>
+<p><b>Status:</b> 200 OK</p>
+<textarea cols="100" rows="100">
+[
+    {
+        "data": [
+            {
+                "id": 1,
+                "name": "kurt",
+                "status": 0,
+                "createAt": "2021-03-30T19:12:05.524+00:00",
+                "updateAt": "2021-03-30T19:12:05.524+00:00",
+                "deleteAt": "2021-04-02T08:10:18.655+00:00"
+            }
+        ],
+        "message": "Sector Delete Success"
+    }
+]
+</textarea>
+
+<h4>Sub SectorList</h4>
+<p><b>Endpoint:</b> {CurrentUrl}/subSector/list</p>
+<p><b>Method:</b> POST </p>
+<p><b>Param: </b>Search:String, page:Integer, size: Integer</p>
+<p><b>Body: </b>null</p>
+<p><b>Header: </b></p>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Authorization</td>
+        <td>Bearer {token}</td>
+    </tr>
+    </tbody>
+</table>
+<p><b>Response: </b></p>
+<p><b>Status:</b> 200 OK</p>
+<textarea cols="100" rows="100">
+    {
+    "data": [
+        {
+            "id": 1,
+            "name": "kurt",
+            "status": 1,
+            "createAt": "2021-03-30T19:12:05.524+00:00",
+            "updateAt": "2021-03-30T19:12:05.524+00:00",
+            "deleteAt": "2021-03-30T19:12:05.524+00:00"
+        },
+        {
+            "id": 2,
+            "name": "oriouqe",
+            "status": 1,
+            "createAt": "2021-03-30T18:58:28.754+00:00",
+            "updateAt": "2021-03-30T18:58:28.754+00:00",
+            "deleteAt": "2021-03-30T18:58:28.754+00:00"
+        }
+    ],
+    "totalPages": 2,
+    "page": 0,
+    "totalElements": 4
+}
+</textarea>
+
+<h4>get Single Sector</h4>
+<p><b>Endpoint:</b> {CurrentUrl}/subSector/getSector</p>
+<p><b>Method:</b> POST </p>
+<p><b>Param: </b>id: Integer</p>
+<p><b>Body: </b>null</p>
+<p><b>Header: </b></p>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Authorization</td>
+        <td>Bearer {token}</td>
+    </tr>
+    </tbody>
+</table>
+<p><b>Response: </b></p>
+<p><b>Status:</b> 200 OK</p>
+<textarea cols="100" rows="100">
+ {
+    "data": {
+        "id": 1,
+        "name": "kurt",
+        "status": 1,
+        "createAt": "2021-03-30T19:12:05.524+00:00",
+        "updateAt": "2021-03-30T19:12:05.524+00:00",
+        "deleteAt": "2021-03-30T19:12:05.524+00:00"
+    },
+    "message": "Sub Sector Find Success"
+}
+</textarea>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

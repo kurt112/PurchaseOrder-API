@@ -15,4 +15,10 @@ public class ApiList {
     public String Sector(){
         return "sector";
     }
+
+    @GetMapping("/subsector")
+    public String SubSector(){
+        return "subsector";
+    }
+
 }

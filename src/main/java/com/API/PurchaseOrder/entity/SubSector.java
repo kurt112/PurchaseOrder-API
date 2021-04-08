@@ -23,9 +23,9 @@ public class SubSector {
     private String name;
     @Column(name ="status")
     private int status;
-    @Column(name = "deleted_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Date createdAt;
-    @Column(name = "deleted_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Date UpdatedAt;
     @Column(name = "deleted_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Date deletedAt;

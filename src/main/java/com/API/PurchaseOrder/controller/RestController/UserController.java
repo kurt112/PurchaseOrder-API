@@ -191,6 +191,7 @@ public class UserController {
         sectorService.save(sector);
         User user = new User(0,sector.getId(), "JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,new Date(),new Date(), new Date());
         response.put("admin", user);
+        userService.save(user);
         return ResponseEntity.ok(response);
     }
 

@@ -187,11 +187,14 @@ public class UserController {
     @GetMapping("/createAdmin")
     public ResponseEntity<?> createAdmin(){
         HashMap<String, Object> response = new HashMap<>();
-        Sector sector = new Sector(1,"",3,4,0, new Date(),new Date(),new Date());
-        sectorService.save(sector);
-        User user = new User(0,sector.getId(), "JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,new Date(),new Date(), new Date());
-        response.put("admin", user);
-        userService.save(user);
+        Sector sector = new Sector(0,"",3,4,0, new Date(),new Date(),new Date());
+        User current = userService.findById(1);
+        if( current == null){
+            current = new User(0,sector.getId(), "JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,new Date(),new Date(), new Date());
+            userService.save(current);
+            sectorService.save(sector);
+        }
+        response.put("admin", current);
         return ResponseEntity.ok(response);
     }
 

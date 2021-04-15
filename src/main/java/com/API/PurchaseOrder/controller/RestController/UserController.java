@@ -3,8 +3,10 @@ package com.API.PurchaseOrder.controller.RestController;
 import com.API.PurchaseOrder.configuration.Login.AuthenticationRequest;
 import com.API.PurchaseOrder.entity.API.LogoutPost;
 import com.API.PurchaseOrder.entity.API.UserPost;
+import com.API.PurchaseOrder.entity.Sector;
 import com.API.PurchaseOrder.entity.User;
 import com.API.PurchaseOrder.service.MyUserDetailsService;
+import com.API.PurchaseOrder.service.serviceImplementation.SectorService;
 import com.API.PurchaseOrder.service.serviceImplementation.UserService;
 import com.API.PurchaseOrder.utils.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +26,19 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     final private UserService userService;
+    final private SectorService sectorService;
     private final Jwt jwt;
     private final AuthenticationManager authenticationManager;
     private final MyUserDetailsService userDetailsService;
 
     @Autowired
-    public UserController(UserService userService, Jwt jwt, AuthenticationManager authenticationManager, MyUserDetailsService userDetailsService) {
+    public UserController(UserService userService, SectorService sectorService, Jwt jwt, AuthenticationManager authenticationManager, MyUserDetailsService userDetailsService) {
         this.userService = userService;
+        this.sectorService = sectorService;
         this.jwt = jwt;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
+
     }
 
     @PostMapping("/logout")
@@ -108,10 +113,10 @@ public class UserController {
         HashMap<String, Object> hashMap = new HashMap<>();
         if(find == null){
             user.setCreateAt(new Date());
-            hashMap.put("message", "User Register Succesful");
+            hashMap.put("message", "User Register Successful");
         }else{
             user.setUpdateAt(new Date());
-            hashMap.put("message", "User Update Succesful");
+            hashMap.put("message", "User Update Successful");
         }
         if(userService.save(user) == null){
             hashMap.put("message", "Can't Add User");
@@ -176,6 +181,16 @@ public class UserController {
         response.put("totalElements", users.getTotalElements());
         response.put("totalPages", users.getTotalPages());
         response.put("currentPage", users.getNumber()+1);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/createAdmin")
+    public ResponseEntity<?> createAdmin(){
+        HashMap<String, Object> response = new HashMap<>();
+        Sector sector = new Sector(1,"",3,4,0, new Date(),new Date(),new Date());
+        sectorService.save(sector);
+        User user = new User(0,sector.getId(), "JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,new Date(),new Date(), new Date());
+        response.put("admin", user);
         return ResponseEntity.ok(response);
     }
 

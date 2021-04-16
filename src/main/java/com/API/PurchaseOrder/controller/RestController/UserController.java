@@ -68,14 +68,14 @@ public class UserController {
         List<UserPost> userPosts = new ArrayList<>();
         List<HashMap> response = new ArrayList<>();
         userPosts.add(userPost);
-        hashMap.put("message","hoy kupal nagLogin ka ulit");
+        hashMap.put("message","Re Login Success");
         hashMap.put("data",userPost);
         response.add(hashMap);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<List<HashMap>> Login(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<?> Login(@RequestBody AuthenticationRequest authenticationRequest) {
         System.out.println("wew");
         HashMap<String, Object> hashMap = new HashMap<>();
 
@@ -83,11 +83,11 @@ public class UserController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                     authenticationRequest.getPassword()));
         }catch (Exception badCredentialsException){
-            System.out.println(badCredentialsException);
-            hashMap.put("message", "Account Not Found");
-            hashMap.put("error",badCredentialsException);
 
-            return ResponseEntity.badRequest().body(null);
+            hashMap.put("title", "Account Not Found");
+            hashMap.put("message","Please Input A Correct Email and Password");
+
+            return ResponseEntity.badRequest().body(hashMap);
         }
 
 
@@ -98,7 +98,7 @@ public class UserController {
         List<UserPost> userPosts = new ArrayList<>();
         List<HashMap> response = new ArrayList<>();
         userPosts.add(userPost);
-        hashMap.put("message","hoy kupal nakalogin ka example lang yan haha");
+        hashMap.put("message","Login Success");
         hashMap.put("data",userPost);
         response.add(hashMap);
         return ResponseEntity.ok(response);

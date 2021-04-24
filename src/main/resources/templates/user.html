@@ -235,8 +235,20 @@
 <h4>UserList</h4>
 <p><b>Endpoint:</b> {CurrentUrl}/user/list</p>
 <p><b>Method:</b> POST </p>
-<p><b>Param: </b>Search:String, page:Integer, size: Integer</p>
+<p><b>Param: </b></p>
 <p><b>Body:</b></p>
+<p><b>Note: </b> </p>
+<p>if the order is true the order will ascending Else descending</p>
+<p>the orderBy  status, role, employeeId The default: status</p>
+<textarea cols="100" rows="100">
+    {
+    "pageSize":10,
+    "currentPage": 1,
+    "search":"",
+    "orderBy":String,
+    "order":true
+	}
+    </textarea>
 <p><b>Header: </b></p>
 <table>
     <thead>
@@ -258,23 +270,26 @@
 {
     "data": [
         {
-            "id": 4,
-            "sectorId": 2,
-            "email": "kurtorioque",
-            "password": "w",
-            "employeeId": "2",
-            "firstName": "kurt",
-            "lastName": "oriouqe",
+            "sectorId": 0,
+            "email": "JohnDoe@gmail.com",
+            "password": "johndoe",
+            "employeeId": "1234567",
+            "firstName": "John",
+            "lastName": "Doe",
             "role": 1,
             "status": 1,
-            "createAt": "2021-04-02T05:59:24.856+00:00",
-            "updateAt": null,
-            "deleteAt": null
+            "createAt": "2021-04-24T07:45:10.707+00:00",
+            "updateAt": "2021-04-24T07:45:10.707+00:00",
+            "deleteAt": "2021-04-24T07:45:10.707+00:00",
+            "statusName": "active",
+            "statusColor": "primary"
         }
     ],
-    "totalPages": 3,
-    "page": 0,
-    "totalElements": 3
+    "totalItem": 1,
+    "totalPage": 1,
+    "pageSize": 10,
+    "currentPage": 1,
+    "status": true
 }
 </textarea>
 

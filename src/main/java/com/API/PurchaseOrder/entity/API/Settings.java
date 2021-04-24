@@ -7,8 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ApiSettings {
-    private long totalElements;
-    private int totalPages;
+public class Settings {
+    private int  pageSize;
     private int currentPage;
+    private String search;
+    private String orderBy;
+    private boolean order;
 }

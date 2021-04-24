@@ -24,7 +24,7 @@ public class SubSectorService implements Services<SubSector> {
     }
 
     @Override
-    public Page<SubSector> data(String search, int page, int size) {
+    public Page<SubSector> data(String search, int page, int size,String orderBy, boolean order) {
         Pageable pageable = PageRequest.of(page,size);
         return repo.data(search.trim().isEmpty()? "": search,pageable);
     }

@@ -54,16 +54,7 @@ public class User {
     @Column(name = "deleted_at",columnDefinition= "TIMESTAMP WITH TIME ZONE")
     private Date deleteAt;
 
-//    public User(int sectorId, String email, String password, String employeeId, String firstName, String lastName, String role, int status) {
-//        this.sectorId = sectorId;
-//        this.email = email;
-//        this.password = password;
-//        this.employeeId = employeeId;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.role = role;
-//        this.status = status;
-//    }
+
 
 
 }

@@ -2,6 +2,8 @@ package com.API.PurchaseOrder.controller.RestController;
 
 import com.API.PurchaseOrder.configuration.Login.AuthenticationRequest;
 import com.API.PurchaseOrder.entity.API.LogoutPost;
+import com.API.PurchaseOrder.entity.API.Settings;
+import com.API.PurchaseOrder.entity.API.UserGet;
 import com.API.PurchaseOrder.entity.API.UserPost;
 import com.API.PurchaseOrder.entity.Sector;
 import com.API.PurchaseOrder.entity.User;
@@ -94,7 +96,8 @@ public class UserController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = this.jwt.generateToken(userDetails);
 
-        UserPost userPost = new UserPost(userService.findByEmail(userDetails.getUsername()),jwt);
+        User user = userService.findByEmail(userDetails.getUsername());
+        UserPost userPost = new UserPost(user,jwt);
         List<UserPost> userPosts = new ArrayList<>();
         List<HashMap> response = new ArrayList<>();
         userPosts.add(userPost);
@@ -144,14 +147,21 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
     @GetMapping("/list")
-    public ResponseEntity<?> getUsers(@RequestParam("search") String search, @RequestParam("page") int page,
-                                      @RequestParam("size") int size){
+    public ResponseEntity<?> getUsers(@RequestBody Settings settings){
         HashMap<String, Object> response = new HashMap<>();
-        Page<User> users = userService.data(search,page-1,size);
-        response.put("data", users.getContent());
-        response.put("totalElements", users.getTotalElements());
-        response.put("totalPages", users.getTotalPages());
+        Page<User> users = userService.data(settings.getSearch(), settings.getCurrentPage()-1,settings.getPageSize(),settings.getOrderBy(),false);
+        List<UserGet> userGets = new ArrayList<>();
+        users.getContent().forEach(e->{
+            userGets.add(new UserGet(e));
+        });
+        response.put("status", true);
+        response.put("totalItem", users.getTotalElements());
+        response.put("totalPage", users.getTotalPages());
+        response.put("pageSize", settings.getPageSize());
         response.put("currentPage", users.getNumber()+1);
+        response.put("data", userGets);
+
+
         return ResponseEntity.ok(response);
     }
 

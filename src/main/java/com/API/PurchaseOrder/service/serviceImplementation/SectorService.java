@@ -25,7 +25,7 @@ public class SectorService implements Services<Sector> {
 
     @Override
 
-    public Page<Sector> data(String search, int page, int size) {
+    public Page<Sector> data(String search, int page, int size,String orderBy,boolean order) {
         Pageable pageable = PageRequest.of(page, size);
 
         return repo.sectors(search.trim().isEmpty()?"": search, pageable);

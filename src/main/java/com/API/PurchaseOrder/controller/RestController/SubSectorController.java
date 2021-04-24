@@ -49,7 +49,7 @@ public class SubSectorController {
     private ResponseEntity<?> sectorList(@RequestParam("search") String search, @RequestParam("page") int page,
                                          @RequestParam("size") int size){
         HashMap<String, Object> response = new HashMap<>();
-        Page<SubSector> sectors = subSectorService.data(search,page-1,size);
+        Page<SubSector> sectors = subSectorService.data(search,page-1,size,"",false);
 
         response.put("data", sectors.getContent());
         response.put("totalElements", sectors.getTotalElements());

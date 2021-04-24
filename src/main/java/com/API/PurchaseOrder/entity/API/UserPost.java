@@ -12,6 +12,5 @@ import lombok.Setter;
 @Setter
 public class UserPost {
     private User user;
-
     private String token;
 }

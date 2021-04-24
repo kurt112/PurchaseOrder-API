@@ -49,7 +49,7 @@ public class SectorController {
     private ResponseEntity<?> sectorList(@RequestParam("search") String search, @RequestParam("page") int page,
                                          @RequestParam("size") int size){
         HashMap<String, Object> response = new HashMap<>();
-        Page<Sector> sectors = sectorService.data(search,page-1,size);
+        Page<Sector> sectors = sectorService.data(search,page-1,size,"", true);
 
         response.put("data", sectors.getContent());
         response.put("totalElements", sectors.getTotalElements());

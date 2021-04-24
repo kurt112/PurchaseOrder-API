@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Sort;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
@@ -31,10 +31,18 @@ public class UserService implements Services<User> {
     }
 
     @Override
-    public Page<User> data( String search, int page, int size) {
+    public Page<User> data( String search, int page, int size, String OrderBy, boolean order) {
         Pageable pageable = PageRequest.of(page, size);
+        search = search.trim().isEmpty()?"":search;
+        switch (OrderBy){
+            case "status":
+                return order?repo.userOrderByStatusAsc(search, pageable):repo.userOrderByStatusDesc(search, pageable);
+            case "role":
+                return order?repo.userOrderByRoleASC(search, pageable):repo.userOrderByRoleDesc(search, pageable);
+            default:
+                return order?repo.userOrderByIdASC(search.trim().isEmpty()?"":search, pageable): repo.userOrderByIdDesc(search.trim().isEmpty()?"":search, pageable);
+        }
 
-        return repo.users(search.trim().isEmpty()?"":search, pageable);
     }
 
     @Override
@@ -67,6 +75,10 @@ public class UserService implements Services<User> {
 
     public User findByEmail(String email) {
         return repo.findByEmail(email);
+    }
+
+    private Sort orderByIdAsc() {
+        return Sort.by((Sort.Direction.ASC),"id");
     }
 
 }

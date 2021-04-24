@@ -15,6 +15,7 @@ import java.util.Date;
 public class UserGet {
 
 
+    private int id;
     private int sectorId;
     private String email;
     private String password;
@@ -29,7 +30,7 @@ public class UserGet {
     private String statusName;
     private String statusColor;
     public UserGet(User user) {
-
+        this.id = user.getId();
         this.sectorId = user.getSectorId();
         this.email = user.getEmail();
         this.password = user.getPassword();

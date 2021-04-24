@@ -112,7 +112,7 @@ public class UserController {
     public ResponseEntity<?> user(@RequestBody User user){
 
         User find = userService.findById(user.getId());
-
+        List<User> list = new ArrayList<>();
         HashMap<String, Object> hashMap = new HashMap<>();
         if(find == null){
             user.setCreateAt(new Date());
@@ -125,7 +125,9 @@ public class UserController {
             hashMap.put("message", "Can't Add User");
             return ResponseEntity.badRequest().body(hashMap);
         }
-        hashMap.put("data",user);
+        list.add(user);
+        hashMap.put("data",list);
+        hashMap.put("success",true);
 
         return ResponseEntity.ok(hashMap);
     }

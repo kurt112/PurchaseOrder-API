@@ -146,7 +146,7 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/list")
+    @PostMapping("/list")
     public ResponseEntity<?> getUsers(@RequestBody Settings settings){
         HashMap<String, Object> response = new HashMap<>();
         Page<User> users = userService.data(settings.getSearch(), settings.getCurrentPage()-1,settings.getPageSize(),settings.getOrderBy(),false);

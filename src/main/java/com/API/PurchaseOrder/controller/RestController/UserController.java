@@ -143,7 +143,7 @@ public class UserController {
             response.put("message", "Can't find user with the id of " + id);
             return ResponseEntity.badRequest().body(response);
         }
-
+        userList.add(user);
         response.put("data", userList);
         response.put("message", "User Find Success");
         response.put("success",true);

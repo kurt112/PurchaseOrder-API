@@ -137,15 +137,16 @@ public class UserController {
 
         HashMap<String, Object> response = new HashMap<>();
         User user = userService.findById(id);
+        List<User> userList = new ArrayList<>();
 
         if(user == null){
             response.put("message", "Can't find user with the id of " + id);
             return ResponseEntity.badRequest().body(response);
         }
 
-        response.put("data", user);
+        response.put("data", userList);
         response.put("message", "User Find Success");
-
+        response.put("success",true);
         return ResponseEntity.ok(response);
     }
     @PostMapping("/list")

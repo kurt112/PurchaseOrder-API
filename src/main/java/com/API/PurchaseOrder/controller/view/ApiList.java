@@ -47,7 +47,6 @@ public class ApiList {
         productService.save(new Product(1, "code123", supplierService.findById(1),subSectorService.findById(1),"product 1", "saple Product", "SKU", "33.2 MG", 30,1,new Date(),new Date(),null));
         productService.save(new Product(2, "ccde122", supplierService.findById(2),subSectorService.findById(1),"product 1", "saple Product", "SKU", "33.2 MG", 30,1,new Date(),new Date(),null));
         productService.save(new Product(3, "code122", supplierService.findById(3),subSectorService.findById(1),"product 1", "saple Product", "SKU", "33.2 MG", 30,1,new Date(),new Date(),null));
-
         return "user";
     }
 

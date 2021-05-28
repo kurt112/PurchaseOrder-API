@@ -25,7 +25,7 @@ public class ProductService implements Services<Product> {
     @Override
     public Page<Product> data(String search, int page, int size, String orderBy, boolean order) {
         Pageable pageable = PageRequest.of(page,size);
-        return repo.findAll(pageable);
+        return repo.data(pageable);
     }
 
     @Override

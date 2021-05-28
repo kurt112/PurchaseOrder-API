@@ -2,7 +2,6 @@ package com.API.PurchaseOrder.controller.RestController;
 
 
 import com.API.PurchaseOrder.entity.API.ProductSettings;
-import com.API.PurchaseOrder.entity.API.Settings;
 import com.API.PurchaseOrder.entity.Product;
 import com.API.PurchaseOrder.entity.SubSector;
 import com.API.PurchaseOrder.entity.Supplier;

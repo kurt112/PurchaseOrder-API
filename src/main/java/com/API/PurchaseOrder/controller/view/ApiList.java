@@ -45,11 +45,10 @@ public class ApiList {
         supplierService.save(new Supplier(3,"Mark", "Doe","444-233","+639 322 133",1, new Date(), new Date(),null));
 
 
+        productService.save(new Product(2, "ffss-ffa", supplierService.findById(2),subSectorService.findById(1),"Oishi Prawn Cracker", "With a similar texture of American hot fries, this foreign snack is a crunchy treat infused with a real shrimp flavor.", "SKU", "60g", 20,1,new Date(),new Date(),null));
+
         productService.save(new Product(1, "ass-ffe", supplierService.findById(1),subSectorService.findById(1),"Biogesic", "For flu and body pain", "SKU", "33.2 MG", 21,1,new Date(),new Date(),null));
 
-
-
-        productService.save(new Product(2, "ffss-ffa", supplierService.findById(2),subSectorService.findById(1),"Oishi Prawn Cracker", "With a similar texture of American hot fries, this foreign snack is a crunchy treat infused with a real shrimp flavor.", "SKU", "60g", 20,1,new Date(),new Date(),null));
         productService.save(new Product(3, "ggg-aaf", supplierService.findById(3),subSectorService.findById(1),"Oreo", " is an American sandwich cookie consisting of two (usually chocolate) wafers with a sweet crème filling. Introduced on March 6, 1912, Oreo is the best-selling cookie brand in the United States.", "SKU", "100g", 30,1,new Date(),new Date(),null));
         return "user";
     }

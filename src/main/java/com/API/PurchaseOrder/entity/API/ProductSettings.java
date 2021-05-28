@@ -1,9 +1,13 @@
 package com.API.PurchaseOrder.entity.API;
 
 
-import lombok.Data;
+import lombok.*;
 
-public @Data class ProductSettings {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductSettings {
     private int  pageSize;
     private int currentPage;
     private String search;

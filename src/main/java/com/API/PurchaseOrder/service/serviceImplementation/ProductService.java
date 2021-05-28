@@ -27,28 +27,28 @@ public class ProductService implements Services<Product> {
        Pageable pageable = PageRequest.of(page,size);
 
         if(supplierId != 0 && subSectorId !=0 && status !=-1){
-            return repo.getProductBySupplierAAndSubSectorWithStatus(pageable, supplierId, subSectorId,status);
+            return repo.getProductBySupplierAAndSubSectorWithStatus(supplierId, subSectorId,status,pageable);
         }else if (supplierId != 0 && subSectorId !=0){
-            return repo.getProductBySupplierAAndSubSector(pageable, supplierId, subSectorId);
+            return repo.getProductBySupplierAAndSubSector(supplierId, subSectorId,pageable);
         }
 
         if(supplierId !=0 && status !=-1){
-            return repo.getProductBySupplierWithStatus(pageable,supplierId,status);
+            return repo.getProductBySupplierWithStatus(supplierId,status,pageable);
         }else if (supplierId !=0){
-            return repo.getProductBySupplier(pageable,supplierId);
+            return repo.getProductBySupplier(supplierId,pageable);
         }
 
         if (subSectorId !=0 && status !=-1){
-            return repo.getProductBySubSectorWithStatus(pageable,subSectorId,status);
+            return repo.getProductBySubSectorWithStatus(subSectorId,status,pageable);
         }else if (subSectorId !=0){
-            return repo.getProductBySubSector(pageable,subSectorId);
+            return repo.getProductBySubSector(subSectorId,pageable);
         }
 
         if(status !=-1){
-            return repo.getProductByStatus(pageable,status);
+            return repo.getProductByStatus(status,pageable);
         }
 
-        return repo.data(pageable);
+        return repo.findAll(pageable);
     }
 
     @Override

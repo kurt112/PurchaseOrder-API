@@ -2,11 +2,14 @@ package com.API.PurchaseOrder.controller.view;
 
 import com.API.PurchaseOrder.entity.*;
 import com.API.PurchaseOrder.service.serviceImplementation.*;
+import com.fasterxml.uuid.Generators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
+
+import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat.UUID;
 
 @Controller
 public class ApiList {
@@ -39,17 +42,35 @@ public class ApiList {
         subSectorService.save(new SubSector(1, "Drugs", 1, new Date(),new Date(), null));
         subSectorService.save(new SubSector(2, "Foods", 1, new Date(),new Date(), null));
         subSectorService.save(new SubSector(3, "Chips", 1, new Date(),new Date(), null));
+        subSectorService.save(new SubSector(4, "T Shirt", 1, new Date(),new Date(), null));
 
         supplierService.save(new Supplier(1,"John", "JownDeo","444-233","+639 322 133",1, new Date(), new Date(),null));
         supplierService.save(new Supplier(2,"Armin", "John","444-233","+639 322 133",1, new Date(), new Date(),null));
         supplierService.save(new Supplier(3,"Mark", "Doe","444-233","+639 322 133",1, new Date(), new Date(),null));
 
+        productService.save(new Product(11, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(1),subSectorService.findById(1),"Biogesic", "For flu and body pain", Generators.randomBasedGenerator().generate().toString().substring(0,7), "33.2 MG", 21,1,new Date(),new Date(),null));
+        productService.save(new Product(12, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(1),subSectorService.findById(1),"Bioflu", "For flu and body pain", Generators.randomBasedGenerator().generate().toString().substring(0,7), "33.2 MG", 21,1,new Date(),new Date(),null));
+        productService.save(new Product(13, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(1),subSectorService.findById(1),"Neozep", "FOr Cold ", Generators.randomBasedGenerator().generate().toString().substring(0,7), "33.2 MG", 21,1,new Date(),new Date(),null));
+        productService.save(new Product(14, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(1),subSectorService.findById(1),"Alaxan", "For Body Pain", Generators.randomBasedGenerator().generate().toString().substring(0,7), "33.2 MG", 21,1,new Date(),new Date(),null));
+        productService.save(new Product(15, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(1),subSectorService.findById(1),"Glowee", "Vitamis For Food", Generators.randomBasedGenerator().generate().toString().substring(0,7), "33.2 MG", 21,1,new Date(),new Date(),null));
 
-        productService.save(new Product(2, "ffss-ffa", supplierService.findById(2),subSectorService.findById(1),"Oishi Prawn Cracker", "With a similar texture of American hot fries, this foreign snack is a crunchy treat infused with a real shrimp flavor.", "SKU", "60g", 20,1,new Date(),new Date(),null));
 
-        productService.save(new Product(1, "ass-ffe", supplierService.findById(1),subSectorService.findById(1),"Biogesic", "For flu and body pain", "SKU", "33.2 MG", 21,1,new Date(),new Date(),null));
+        productService.save(new Product(21, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(2),subSectorService.findById(2),"Oishi Prawn Cracker", "With a similar texture of American hot fries, this foreign snack is a crunchy treat infused with a real shrimp flavor.", Generators.randomBasedGenerator().generate().toString().substring(0,7), "60g", 20,1,new Date(),new Date(),null));
+        productService.save(new Product(22, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(2),subSectorService.findById(2),"Pillows", "Crunchy crackers bursting with yummy chocolate filling. -Chocolate filled -Crunchy and fun to eat -Enriched with Vitamin A -For baon or as snacks.", Generators.randomBasedGenerator().generate().toString().substring(0,7), "60g", 20,1,new Date(),new Date(),null));
+        productService.save(new Product(23, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(2),subSectorService.findById(2),"kirei", "Enjoy these delicious Oishi Kirei Yummy Flakes. These chips feature a shrimp flavor that tantilizes your taste buds with a hint of saltiness.", Generators.randomBasedGenerator().generate().toString().substring(0,7), "60g", 20,1,new Date(),new Date(),null));
+        productService.save(new Product(24, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(2),subSectorService.findById(2),"cracklings oishi", "Shop Oishi Classic Ribbed Cracklings In Old Fashioned Salt and Vinegar - compare prices,.", Generators.randomBasedGenerator().generate().toString().substring(0,7), "60g", 20,1,new Date(),new Date(),null));
+        productService.save(new Product(25, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(2),subSectorService.findById(2),"Crispy Patata", "Pillows - Oishi. Crunchy crackers bursting with yummy chocolate filling - Chocolate filled -Crunchy and fun to eat -Enriched with Vitamin A -For baon or as snacks.", Generators.randomBasedGenerator().generate().toString().substring(0,7), "60g", 20,1,new Date(),new Date(),null));
 
-        productService.save(new Product(3, "ggg-aaf", supplierService.findById(3),subSectorService.findById(1),"Oreo", " is an American sandwich cookie consisting of two (usually chocolate) wafers with a sweet crème filling. Introduced on March 6, 1912, Oreo is the best-selling cookie brand in the United States.", "SKU", "100g", 30,1,new Date(),new Date(),null));
+
+
+        productService.save(new Product(3, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(3),subSectorService.findById(4),"The Black Google Tee", " 100% cotton Google t-shirt", Generators.randomBasedGenerator().generate().toString().substring(0,7), "Cm", 100,1,new Date(),new Date(),null));
+        productService.save(new Product(4, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(3),subSectorService.findById(4),"The Black Google Tee", " 100% cotton Google t-shirt", Generators.randomBasedGenerator().generate().toString().substring(0,7), "Cm", 150,1,new Date(),new Date(),null));
+        productService.save(new Product(5, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(3),subSectorService.findById(4),"The Black Google Tee", "100% cotton Google t-shirt", Generators.randomBasedGenerator().generate().toString().substring(0,7), "Cm", 150,1,new Date(),new Date(),null));
+        productService.save(new Product(6, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(3),subSectorService.findById(4),"The Black Google Tee", "100% cotton Google t-shirt", Generators.randomBasedGenerator().generate().toString().substring(0,7), "Cm", 200,1,new Date(),new Date(),null));
+        productService.save(new Product(7, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(3),subSectorService.findById(4),"The Black Google Tee", "100% cotton Google t-shirt", Generators.randomBasedGenerator().generate().toString().substring(0,7), "Cm", 300,1,new Date(),new Date(),null));
+
+
+
         return "user";
     }
 

@@ -1,10 +1,13 @@
 package com.API.PurchaseOrder.service.serviceImplementation;
 
+import com.API.PurchaseOrder.entity.Order;
 import com.API.PurchaseOrder.entity.OrderDetails;
 import com.API.PurchaseOrder.repository.OrderDetailsRepository;
 import com.API.PurchaseOrder.service.PageableParentClass.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,6 +21,11 @@ public class OrderDetailsService implements Services<OrderDetails> {
     @Autowired
     public OrderDetailsService(OrderDetailsRepository repo) {
         this.repo = repo;
+    }
+
+    public Page<OrderDetails> getOrderDetails(String search, int page, int size, int status){
+        Pageable pageable = PageRequest.of(page,size);
+        return repo.findAll(pageable);
     }
 
     @Override

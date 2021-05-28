@@ -21,4 +21,9 @@ public class ApiList {
         return "subsector";
     }
 
+    @GetMapping("/product")
+    public String Product() {return "product";}
+
+    @GetMapping("/supplier")
+    public String Supplier() {return "supplier";}
 }

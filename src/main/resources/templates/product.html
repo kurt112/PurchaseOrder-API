@@ -1,10 +1,305 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+
+      dir="ltr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>Sector API</title>
+	<style>
+		body {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+		
+		table, th, td {
+			border: 1px solid black;
+		}
+		
+		table {
+			width: 50%;
+		}
+		
+		textarea {
+			height: 300px;
+		}
+	</style>
 </head>
 <body>
+<h4>
+	Product API
+</h4>
+<hr/>
 
+<h5>Current URL: https://purchaseorderapi.herokuapp.com/</h5>
+<hr/>
+<h4>Add or Update Product</h4>
+<h5><u>If the Product has a same id it will update else it will register</u></h5>
+<p><b>Endpoint:</b> {CurrentUrl}/product/addUpdate </p>
+<p><b>Method:</b> POST </p>
+<p><b>Body: </b></p>
+<textarea cols="100" rows="100">
+    {
+    "code": "asd",
+    "supplierId": 1,
+    "price": 4,
+    "name": "product",
+    "description": "hotdog",
+    "id": null,
+    "subSectorId": 1,
+    "sku": "sample",
+    "unitMeasure": "33.4MG",
+    "status": 4
+}
+    </textarea>
+<p><b>Header: </b></p>
+<table>
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Value</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>Authorization</td>
+		<td>Bearer {token}</td>
+	</tr>
+	</tbody>
+</table>
+<p><b>Response: </b></p>
+<p><b>Status:</b> 200 OK</p>
+<textarea cols="100" rows="100">
+{
+    "data": [
+        {
+            "id": 3,
+            "code": "asd",
+            "supplier": null,
+            "subSector": {
+                "id": 1,
+                "name": "qweqw",
+                "status": 1,
+                "createdAt": "2021-05-28T05:15:42.287+00:00",
+                "deletedAt": null,
+                "updatedAt": null
+            },
+            "name": "product",
+            "description": "hotdog",
+            "sku": "sample",
+            "unitMeasure": "33.4MG",
+            "price": 4,
+            "status": 4,
+            "createAt": "2021-05-28T05:38:20.046+00:00",
+            "updateAt": null,
+            "deleteAt": null
+        }
+    ],
+    "success": true,
+    "message": "Product Register Successful"
+}
+</textarea>
+
+
+<h4>To Delete Product</h4>
+<p><b>Endpoint:</b> {CurrentUrl}/product/delete </p>
+<p><b>Method:</b> GET </p>
+<p><b>Body: </b>null</p>
+<p><b>Header: </b></p>
+<table>
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Value</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>Authorization</td>
+		<td>Bearer {token}</td>
+	</tr>
+	</tbody>
+</table>
+<p><b>Param: </b>id (productID)</p>
+<p><b>Response: </b></p>
+<p><b>Status:</b> 200 OK</p>
+<textarea cols="100" rows="100">
+{
+    "data": {
+        "id": 1,
+        "code": "asd",
+        "supplier": {
+            "id": 2,
+            "name": "Sample",
+            "contactPerson": "JohnDoe",
+            "telNo": "512312",
+            "mobileNo": "12312",
+            "status": 1,
+            "createAt": "2021-05-28T05:35:43.679+00:00",
+            "updateAt": null,
+            "deleteAt": null
+        },
+        "subSector": {
+            "id": 1,
+            "name": "qweqw",
+            "status": 1,
+            "createdAt": "2021-05-28T05:15:42.287+00:00",
+            "deletedAt": null,
+            "updatedAt": null
+        },
+        "name": "product",
+        "description": "hotdog",
+        "sku": "sample",
+        "unitMeasure": "33.4MG",
+        "price": 4,
+        "status": 4,
+        "createAt": "2021-05-28T05:29:39.413+00:00",
+        "updateAt": null,
+        "deleteAt": "2021-05-28T05:40:03.136+00:00"
+    },
+    "message": "Delete Product Successful"
+}
+</textarea>
+
+<h4>ProductList</h4>
+<p><b>Endpoint:</b> {CurrentUrl}/product/list</p>
+<p><b>Method:</b> POST </p>
+<p><b>Body: </b></p>
+<textarea cols="100" rows="100">
+	{
+    "pageSize":10,
+    "currentPage": 1,
+    "search":""
+	}
+    </textarea>
+<p><b>Header: </b></p>
+<table>
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Value</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>Authorization</td>
+		<td>Bearer {token}</td>
+	</tr>
+	</tbody>
+</table>
+<p><b>Response: </b></p>
+<p><b>Status:</b> 200 OK</p>
+<textarea cols="100" rows="100">
+    {
+    "data": [
+        {
+            "id": 1,
+            "code": "asd",
+            "supplier": {
+                "id": 2,
+                "name": "Sample",
+                "contactPerson": "JohnDoe",
+                "telNo": "512312",
+                "mobileNo": "12312",
+                "status": 1,
+                "createAt": "2021-05-28T05:35:43.679+00:00",
+                "updateAt": null,
+                "deleteAt": null
+            },
+            "subSector": {
+                "id": 1,
+                "name": "qweqw",
+                "status": 1,
+                "createdAt": "2021-05-28T05:15:42.287+00:00",
+                "deletedAt": null,
+                "updatedAt": null
+            },
+            "name": "product",
+            "description": "hotdog",
+            "sku": "sample",
+            "unitMeasure": "33.4MG",
+            "price": 4,
+            "status": 4,
+            "createAt": "2021-05-28T05:29:39.413+00:00",
+            "updateAt": null,
+            "deleteAt": null
+        }
+    ],
+    "totalPages": 1,
+    "page": 1,
+    "totalElements": 1
+}
+</textarea>
+
+<h4>get Single Product</h4>
+<p><b>Endpoint:</b> {CurrentUrl}/product/getProduct</p>
+<p><b>Method:</b> POST </p>
+<p><b>Param: </b>id: Integer</p>
+<p><b>Body: </b>null</p>
+<p><b>Header: </b></p>
+<table>
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Value</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>Authorization</td>
+		<td>Bearer {token}</td>
+	</tr>
+	</tbody>
+</table>
+<p><b>Response: </b></p>
+<p><b>Status:</b> 200 OK</p>
+<textarea cols="100" rows="100">
+ {
+    "data": [
+        {
+            "id": 1,
+            "code": "asd",
+            "supplier": {
+                "id": 2,
+                "name": "Sample",
+                "contactPerson": "JohnDoe",
+                "telNo": "512312",
+                "mobileNo": "12312",
+                "status": 1,
+                "createAt": "2021-05-28T05:35:43.679+00:00",
+                "updateAt": null,
+                "deleteAt": null
+            },
+            "subSector": {
+                "id": 1,
+                "name": "qweqw",
+                "status": 1,
+                "createdAt": "2021-05-28T05:15:42.287+00:00",
+                "deletedAt": null,
+                "updatedAt": null
+            },
+            "name": "product",
+            "description": "hotdog",
+            "sku": "sample",
+            "unitMeasure": "33.4MG",
+            "price": 4,
+            "status": 4,
+            "createAt": "2021-05-28T05:29:39.413+00:00",
+            "updateAt": null,
+            "deleteAt": null
+        }
+    ],
+    "success": true,
+    "message": "Product Find Success"
+}
+</textarea>
+
+<br/>
+<br/>
+<br/>
 </body>
 </html>

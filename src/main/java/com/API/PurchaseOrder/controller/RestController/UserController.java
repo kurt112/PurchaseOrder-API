@@ -181,20 +181,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/createAdmin")
-    public ResponseEntity<?> createAdmin(){
-        HashMap<String, Object> response = new HashMap<>();
-        Sector sector = new Sector(0,"Sample Sector",4,0, new Date(),new Date(),new Date());
-        User current = userService.findById(1);
-        if( current == null){
-            current = new User(0,"JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,sector,new Date(),new Date(), new Date());
-            sectorService.save(sector);
-            userService.save(current);
-        }
-        response.put("admin", current);
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/getUser")
     public ResponseEntity<?> getUser(@RequestParam("id") int id){
 

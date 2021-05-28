@@ -1,6 +1,7 @@
 package com.API.PurchaseOrder.controller.RestController;
 
 
+import com.API.PurchaseOrder.entity.API.ProductSettings;
 import com.API.PurchaseOrder.entity.API.Settings;
 import com.API.PurchaseOrder.entity.Product;
 import com.API.PurchaseOrder.entity.SubSector;
@@ -34,10 +35,11 @@ public class ProductController {
     }
 
     @PostMapping("/list")
-    private ResponseEntity<?> ProductList(@RequestBody Settings settings){
+    private ResponseEntity<?> ProductList(@RequestBody ProductSettings settings){
         HashMap<String, Object> response = new HashMap<>();
-        Page<Product> products = service.data(settings.getSearch(), settings.getCurrentPage()-1,settings.getPageSize(),settings.getOrderBy(),false);
-
+        Page<Product> products = service.getProduct(settings.getSearch(),
+                settings.getCurrentPage()-1,settings.getPageSize(),settings.getSupplierId(),
+                settings.getSubSectorId(),settings.getStatus());
         response.put("data", products.getContent());
         response.put("totalElements", products.getTotalElements());
         response.put("totalPages", products.getTotalPages());
@@ -79,6 +81,9 @@ public class ProductController {
             product.setUpdateAt(new Date());
             result.put("message", "User Update Successful");
         }
+
+
+
         if(service.save(product) == null){
             result.put("message", "Can't Add User");
             return ResponseEntity.badRequest().body(hashMap);
@@ -91,7 +96,7 @@ public class ProductController {
     }
 
 
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public ResponseEntity<?> DeleteProduct  (@RequestParam("id") int id){
         Product product = service.findById(id);
         HashMap<String, Object> hashMap = new HashMap<>();

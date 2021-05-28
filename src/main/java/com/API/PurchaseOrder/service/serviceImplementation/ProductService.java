@@ -17,9 +17,38 @@ import java.util.Optional;
 public class ProductService implements Services<Product> {
     private final ProductRepository repo;
 
+
     @Autowired
     public ProductService(ProductRepository repo) {
         this.repo = repo;
+    }
+
+   public Page<Product> getProduct(String search, int page, int size, int supplierId, int subSectorId, int status){
+       Pageable pageable = PageRequest.of(page,size);
+
+        if(supplierId != 0 && subSectorId !=0 && status !=-1){
+            return repo.getProductBySupplierAAndSubSectorWithStatus(pageable, supplierId, subSectorId,status);
+        }else if (supplierId != 0 && subSectorId !=0){
+            return repo.getProductBySupplierAAndSubSector(pageable, supplierId, subSectorId);
+        }
+
+        if(supplierId !=0 && status !=-1){
+            return repo.getProductBySupplierWithStatus(pageable,supplierId,status);
+        }else if (supplierId !=0){
+            return repo.getProductBySupplier(pageable,supplierId);
+        }
+
+        if (subSectorId !=0 && status !=-1){
+            return repo.getProductBySubSectorWithStatus(pageable,subSectorId,status);
+        }else if (subSectorId !=0){
+            return repo.getProductBySubSector(pageable,subSectorId);
+        }
+
+        if(status !=-1){
+            return repo.getProductByStatus(pageable,status);
+        }
+
+        return repo.data(pageable);
     }
 
     @Override

@@ -8,10 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "sub_sector", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "sub_sector")
 @Getter
 @Setter
 public class SubSector {

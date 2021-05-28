@@ -31,7 +31,6 @@ public class UserGet {
     private String statusColor;
     public UserGet(User user) {
         this.id = user.getId();
-        this.sectorId = user.getSectorId();
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.employeeId = user.getEmployeeId();

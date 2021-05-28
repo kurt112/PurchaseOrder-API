@@ -8,9 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
-@AllArgsConstructor
 @Entity
 @Table(name = "user", schema = "public")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -20,9 +20,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private  int id;
-
-    @Column(name = "sector_id")
-    private int sectorId;
 
     @Column(name = "email")
     private String email;
@@ -45,6 +42,10 @@ public class User {
     @Column(name = "status")
     private int status;
 
+    @ManyToOne()
+    @JoinColumn(name = "sector")
+    private Sector sector;
+
     @Column(name = "created_at", columnDefinition= "TIMESTAMP WITH TIME ZONE")
     private Date createAt;
 
@@ -53,6 +54,7 @@ public class User {
 
     @Column(name = "deleted_at",columnDefinition= "TIMESTAMP WITH TIME ZONE")
     private Date deleteAt;
+
 
 
 

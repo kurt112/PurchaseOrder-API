@@ -132,23 +132,7 @@ public class UserController {
         return ResponseEntity.ok(hashMap);
     }
 
-    @GetMapping("/getUser")
-    public ResponseEntity<?> getUser(@RequestParam("id") int id){
 
-        HashMap<String, Object> response = new HashMap<>();
-        User user = userService.findById(id);
-        List<User> userList = new ArrayList<>();
-
-        if(user == null){
-            response.put("message", "Can't find user with the id of " + id);
-            return ResponseEntity.badRequest().body(response);
-        }
-        userList.add(user);
-        response.put("data", userList);
-        response.put("message", "User Find Success");
-        response.put("success",true);
-        return ResponseEntity.ok(response);
-    }
     @PostMapping("/list")
     public ResponseEntity<?> getUsers(@RequestBody Settings settings){
         HashMap<String, Object> response = new HashMap<>();
@@ -200,14 +184,32 @@ public class UserController {
     @GetMapping("/createAdmin")
     public ResponseEntity<?> createAdmin(){
         HashMap<String, Object> response = new HashMap<>();
-        Sector sector = new Sector(0,"",3,4,0, new Date(),new Date(),new Date());
+        Sector sector = new Sector(0,"Sample Sector",4,0, new Date(),new Date(),new Date());
         User current = userService.findById(1);
         if( current == null){
-            current = new User(0,sector.getId(), "JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,new Date(),new Date(), new Date());
-            userService.save(current);
+            current = new User(0,"JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,sector,new Date(),new Date(), new Date());
             sectorService.save(sector);
+            userService.save(current);
         }
         response.put("admin", current);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<?> getUser(@RequestParam("id") int id){
+
+        HashMap<String, Object> response = new HashMap<>();
+        User user = userService.findById(id);
+        List<User> userList = new ArrayList<>();
+
+        if(user == null){
+            response.put("message", "Can't find user with the id of " + id);
+            return ResponseEntity.badRequest().body(response);
+        }
+        userList.add(user);
+        response.put("data", userList);
+        response.put("message", "User Find Success");
+        response.put("success",true);
         return ResponseEntity.ok(response);
     }
 

@@ -1,5 +1,6 @@
 package com.API.PurchaseOrder.controller.RestController;
 
+import com.API.PurchaseOrder.entity.API.Settings;
 import com.API.PurchaseOrder.entity.SubSector;
 import com.API.PurchaseOrder.service.serviceImplementation.SubSectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +46,11 @@ public class SubSectorController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/list")
-    private ResponseEntity<?> sectorList(@RequestParam("search") String search, @RequestParam("page") int page,
-                                         @RequestParam("size") int size){
+    @PostMapping("/list")
+    private ResponseEntity<?> sectorList(@RequestBody Settings settings){
+        if(settings.isAll())  return ResponseEntity.ok(subSectorService.getAll());
         HashMap<String, Object> response = new HashMap<>();
-        Page<SubSector> sectors = subSectorService.data(search,page-1,size,"",false);
+        Page<SubSector> sectors = subSectorService.data(settings.getSearch(),settings.getCurrentPage()-1,settings.getPageSize(),"",false);
 
         response.put("data", sectors.getContent());
         response.put("totalElements", sectors.getTotalElements());

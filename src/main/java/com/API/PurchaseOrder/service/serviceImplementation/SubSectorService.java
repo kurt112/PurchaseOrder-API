@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,11 @@ public class SubSectorService implements Services<SubSector> {
     @Autowired
     public SubSectorService(SubSectorRepository repo) {
         this.repo = repo;
+    }
+
+
+    public List<SubSector> getAll() {
+        return repo.findAll();
     }
 
     @Override
@@ -55,4 +61,6 @@ public class SubSectorService implements Services<SubSector> {
         Optional<SubSector> sector = repo.findById(id);
         return sector.orElse(null);
     }
+
+
 }

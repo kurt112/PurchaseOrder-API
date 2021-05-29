@@ -1,7 +1,6 @@
 package com.API.PurchaseOrder.controller.RestController;
 
 import com.API.PurchaseOrder.entity.API.SettingByStatus;
-import com.API.PurchaseOrder.entity.Approval;
 import com.API.PurchaseOrder.entity.Order;
 import com.API.PurchaseOrder.entity.OrderDetails;
 import com.API.PurchaseOrder.entity.Product;
@@ -45,10 +44,11 @@ public class OrderController {
     }
 
     @PostMapping("/addUpdate")
-    private ResponseEntity<?> addSector(@RequestBody HashMap<?,?> hashMap){
+    private ResponseEntity<?> addOrder(@RequestBody HashMap<?,?> hashMap){
 
         Object id = hashMap.get("id");
         Object products = hashMap.get("products");
+        Object qty = hashMap.get("qty");
 
         Order order = null;
 
@@ -64,6 +64,7 @@ public class OrderController {
         List<Product> productList = new ArrayList<>();
         if(order == null){
             order = new Order(0,userService.findById(1),null,null,2,new Date(),new Date(),null);
+            order.setQuantity(Integer.parseInt(qty.toString()));
             for(int i: productId){
                 productList.add(productService.findById(i));
             }

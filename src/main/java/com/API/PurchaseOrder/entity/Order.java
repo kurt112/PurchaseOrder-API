@@ -35,6 +35,9 @@ public class Order {
     @Column(name = "status")
     private int status;
 
+    @Column(name = "quantity")
+    private int quantity;
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Date createdAt;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")

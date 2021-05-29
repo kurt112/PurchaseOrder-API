@@ -24,6 +24,10 @@ public class SupplierService implements Services<Supplier> {
         this.repo = repo;
     }
 
+    public List<Supplier> getAllSupplier(){
+        return repo.findAll();
+    }
+
 
     @Override
     public Page<Supplier> data(String search, int page, int size, String orderBy, boolean order) {

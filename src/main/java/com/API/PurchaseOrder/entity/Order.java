@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "order", schema = "public")
@@ -41,5 +42,17 @@ public class Order {
     @Column(name = "deleted_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Date deletedAt;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetails> orderDetailsList;
 
+    public Order(int id, User requestor, Approval approval, Date transferDate, int status, Date createdAt, Date updatedAt, Date deletedAt) {
+        this.id = id;
+        this.requestor = requestor;
+        this.approval = approval;
+        this.transferDate = transferDate;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
+    }
 }

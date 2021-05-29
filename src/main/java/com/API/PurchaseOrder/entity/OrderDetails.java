@@ -1,5 +1,6 @@
 package com.API.PurchaseOrder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class OrderDetails {
     @Column(name = "id")
     private int id;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "order_id")
     private Order order;

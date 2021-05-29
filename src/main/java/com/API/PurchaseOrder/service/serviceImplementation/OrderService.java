@@ -24,8 +24,18 @@ public class OrderService implements Services<Order> {
     }
 
     public Page<Order> getOrder(String search, int page,int size,int status, int requestorId, int approvalId){
+
         Pageable pageable = PageRequest.of(page,size);
-        return repo.getOrder(status,requestorId,approvalId,pageable);
+        if(requestorId == -1 && approvalId == -1){
+            return repo.getOrder(status,pageable);
+        }else if(approvalId == -1){
+            return repo.getOrderWithRequestor(status,requestorId,pageable);
+        }else if(requestorId == -1){
+            return repo.getOrderWithApproval(status,approvalId,pageable);
+        }
+
+        return repo.getOrderWithRequestorAndApproval(status,requestorId,approvalId,pageable);
+
     }
 
     @Override

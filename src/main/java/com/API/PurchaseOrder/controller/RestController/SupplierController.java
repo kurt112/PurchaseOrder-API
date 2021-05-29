@@ -52,6 +52,9 @@ public class SupplierController {
 
     @PostMapping("/list")
     public ResponseEntity<?> getSupplier(@RequestBody Settings settings){
+
+        if(settings.isAll()) return ResponseEntity.ok(service.getAllData());
+
         HashMap<String, Object> response = new HashMap<>();
         Page<Supplier> suppliers = service.data(settings.getSearch(), settings.getCurrentPage()-1,settings.getPageSize(),settings.getOrderBy(),false);
 

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,5 +46,9 @@ public class SupplierService implements Services<Supplier> {
     public Supplier findById(int id) {
         Optional<Supplier> supplier  = repo.findById(id);
         return supplier.orElse(null);
+    }
+
+    public List<Supplier> getAllData(){
+        return repo.findAll();
     }
 }

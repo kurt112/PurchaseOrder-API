@@ -13,4 +13,5 @@ public class Settings {
     private String search;
     private String orderBy;
     private boolean order;
+    private boolean all;
 }

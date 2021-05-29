@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    @Query(value = "SELECT t from Order t where t.status = ?1")
-    Page<Order> getOrder(int status, Pageable pageable);
+    @Query(value = "SELECT t from Order t where t.status = ?1 and t.requestor.id =2 and t.approval.id = ?3")
+    Page<Order> getOrder(int status, int requestorId, int approvalId, Pageable pageable);
 }

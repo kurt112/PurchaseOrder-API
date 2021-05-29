@@ -23,9 +23,9 @@ public class OrderService implements Services<Order> {
         this.repo = repo;
     }
 
-    public Page<Order> getOrder(String search, int page,int size,int status){
+    public Page<Order> getOrder(String search, int page,int size,int status, int requestorId, int approvalId){
         Pageable pageable = PageRequest.of(page,size);
-        return repo.getOrder(status,pageable);
+        return repo.getOrder(status,requestorId,approvalId,pageable);
     }
 
     @Override

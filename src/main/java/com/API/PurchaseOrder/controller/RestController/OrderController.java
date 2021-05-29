@@ -35,7 +35,7 @@ public class OrderController {
     private ResponseEntity<?>orderList(@RequestBody SettingByStatus settings){
         HashMap<String, Object> response = new HashMap<>();
         Page<Order> products = service.getOrder(settings.getSearch(),
-                settings.getCurrentPage()-1,settings.getPageSize(),settings.getStatus());
+                settings.getCurrentPage()-1,settings.getPageSize(),settings.getStatus(),settings.getRequestorId(),settings.getApprovalId());
         response.put("data", products.getContent());
         response.put("totalElements", products.getTotalElements());
         response.put("totalPages", products.getTotalPages());

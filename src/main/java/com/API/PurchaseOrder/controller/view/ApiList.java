@@ -36,12 +36,12 @@ public class ApiList {
     @GetMapping("/")
     public String Weclome(){
 
-        sectorService.save(new Sector(1,"Sector 1",1,2,new Date(), new Date(), null));
-        sectorService.save(new Sector(2,"Sector 2",1,2,new Date(), new Date(), null));
-        sectorService.save(new Sector(3,"Sector 3",1,2,new Date(), new Date(), null));
+        sectorService.save(new Sector(0,"Sector 1",1,2,new Date(), new Date(), null));
+        sectorService.save(new Sector(0,"Sector 2",1,2,new Date(), new Date(), null));
+        sectorService.save(new Sector(0,"Sector 3",1,2,new Date(), new Date(), null));
 
-        userService.save(new User(0,"kurtad@gmail.com","123","456", "Kurt", "Orioque",1,2,sectorService.findById(1),new Date(),new Date(),null));
-        userService.save(new User(1,"JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,sectorService.findById(2),new Date(),new Date(), new Date()));
+        if(userService.findById(1) == null)userService.save(new User(1,"kurtad@gmail.com","123","456", "Kurt", "Orioque",1,2,sectorService.findById(1),new Date(),new Date(),null));
+        if(userService.findById(2) == null) userService.save(new User(2,"JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,sectorService.findById(2),new Date(),new Date(), new Date()));
 
         subSectorService.save(new SubSector(0, "Drugs", 1, new Date(),new Date(), null));
         subSectorService.save(new SubSector(0, "Foods", 1, new Date(),new Date(), null));

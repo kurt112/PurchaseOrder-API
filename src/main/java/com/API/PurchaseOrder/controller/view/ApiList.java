@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.Date;
-
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat.UUID;
+import java.util.List;
 
 @Controller
 public class ApiList {
@@ -19,14 +19,18 @@ public class ApiList {
     private final SectorService sectorService;
     private final UserService userService;
     private final SupplierService supplierService;
+    private final OrderService orderService;
+    private final OrderDetailsService orderDetailsService;
 
     @Autowired
-    public ApiList(SubSectorService subSectorService, ProductService productService, SectorService sectorService, UserService userService, SupplierService supplierService) {
+    public ApiList(SubSectorService subSectorService, ProductService productService, SectorService sectorService, UserService userService, SupplierService supplierService, OrderService orderService, OrderDetailsService orderDetailsService) {
         this.subSectorService = subSectorService;
         this.productService = productService;
         this.sectorService = sectorService;
         this.userService = userService;
         this.supplierService = supplierService;
+        this.orderService = orderService;
+        this.orderDetailsService = orderDetailsService;
     }
 
     @GetMapping("/")
@@ -69,6 +73,32 @@ public class ApiList {
         productService.save(new Product(0, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(3),subSectorService.findById(4),"The Black Google Tee", "100% cotton Google t-shirt", Generators.randomBasedGenerator().generate().toString().substring(0,7), "Cm", 200,1,new Date(),new Date(),null));
         productService.save(new Product(0, Generators.randomBasedGenerator().generate().toString().substring(0,7), supplierService.findById(3),subSectorService.findById(4),"The Black Google Tee", "100% cotton Google t-shirt", Generators.randomBasedGenerator().generate().toString().substring(0,7), "Cm", 300,1,new Date(),new Date(),null));
 
+        List<OrderDetails> orderDetailsList = new ArrayList<>();
+        Order order = new Order(0, userService.findById(0),null,new Date(),2,2,new Date(),new Date(),null,orderDetailsList);
+        orderService.save(order);
+        List<Product>list = new ArrayList<>();
+        list.add(productService.findById(1));
+        list.add(productService.findById(2));
+        list.add(productService.findById(3));
+        OrderDetails orderDetails = new OrderDetails(0,order,list,3,10,new Date(), new Date(), null);
+        orderDetailsList.add(orderDetails);
+        order.setOrderDetailsList(orderDetailsList);
+        orderDetailsService.save(orderDetails);
+        orderService.save(order);
+
+
+        List<OrderDetails> details = new ArrayList<>();
+        Order order1 = new Order(0, userService.findById(0),null,new Date(),2,2,new Date(),new Date(),null,orderDetailsList);
+        orderService.save(order1);
+        List<Product>productList = new ArrayList<>();
+        list.add(productService.findById(4));
+        list.add(productService.findById(5));
+        list.add(productService.findById(6));
+        OrderDetails details1 = new OrderDetails(0,order1,list,3,10,new Date(), new Date(), null);
+        details.add(details1);
+        order1.setOrderDetailsList(details);
+        orderDetailsService.save(details1);
+        orderService.save(order1);
 
 
         return "user";

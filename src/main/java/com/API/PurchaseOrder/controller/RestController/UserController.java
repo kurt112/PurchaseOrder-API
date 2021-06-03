@@ -82,10 +82,12 @@ public class UserController {
         HashMap<String, Object> hashMap = new HashMap<>();
 
         try {
+            System.out.println(authenticationRequest.getUsername());
+            System.out.println(authenticationRequest.getPassword());
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                     authenticationRequest.getPassword()));
         }catch (Exception badCredentialsException){
-
+            System.out.println(badCredentialsException);
             hashMap.put("title", "Account Not Found");
             hashMap.put("message","Please Input A Correct Email and Password");
 

@@ -37,7 +37,7 @@ public class ApiList {
         sectorService.save(new Sector(3,"Sector 3",1,2,new Date(), new Date(), null));
 
         userService.save(new User(0,"kurtad@gmail.com","123","456", "Kurt", "Orioque",1,2,sectorService.findById(1),new Date(),new Date(),null));
-        userService.save(new User(0,"JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,sectorService.findById(2),new Date(),new Date(), new Date()));
+        userService.save(new User(1,"JohnDoe@gmail.com","johndoe","1234567","John","Doe",1,1,sectorService.findById(2),new Date(),new Date(), new Date()));
 
         subSectorService.save(new SubSector(0, "Drugs", 1, new Date(),new Date(), null));
         subSectorService.save(new SubSector(0, "Foods", 1, new Date(),new Date(), null));
